@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Quintet: five reels, three free spins a day. Free to play, 18+.">
+<meta name="theme-color" content="#0E2A4D">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quintet: a daily five-reel game (look prototype)</title>
+<link rel="preload" href="/assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-bone" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D7D1C2"/></linearGradient>
+    <linearGradient id="g-silver" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#EEF6FF"/><stop offset=".55" stop-color="#9CC4EE"/><stop offset="1" stop-color="#6B97C7"/></linearGradient>
+    <linearGradient id="g-amber" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#F8DFA3"/><stop offset=".5" stop-color="#D99C3B"/><stop offset="1" stop-color="#9A6417"/></linearGradient>
+    <linearGradient id="g-gold" gradientUnits="userSpaceOnUse" x1="8" y1="4" x2="56" y2="60"><stop offset="0" stop-color="#FFF4D2"/><stop offset=".35" stop-color="#F2C15E"/><stop offset=".7" stop-color="#C88A2E"/><stop offset="1" stop-color="#FFE8A6"/></linearGradient>
+  </defs>
+</svg>
+<main class="app" data-skin="matchday">
+  <h1>Quintet</h1>
+  <p class="sub">Five reels, three free spins a day. Match three or more symbols to multiply your points.</p>
+
+  <div class="note" id="recap" hidden>
+    <p id="recapTxt"></p>
+    <button class="x" id="recapX" type="button" aria-label="Dismiss last week's recap">&times;</button>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Sections">
+    <button type="button" role="tab" id="t-play" aria-selected="true" aria-controls="p-play">Play</button>
+    <button type="button" role="tab" id="t-coll" aria-selected="false" aria-controls="p-coll">Collection</button>
+    <button type="button" role="tab" id="t-room" aria-selected="false" aria-controls="p-room">Reel Room</button>
+  </div>
+
+  <!-- PLAY -->
+  <section id="p-play" role="tabpanel" aria-labelledby="t-play">
+    <div class="play">
+      <div class="col-a">
+        <div class="stage" id="cab">
+          <div class="stage-top">
+            <span class="chip">Free to play. 18+</span>
+            <div class="looks" role="radiogroup" aria-label="Choose a look">
+              <button type="button" role="radio" data-skin="matchday" aria-label="Matchday look" aria-checked="true"></button>
+              <button type="button" role="radio" data-skin="pitch" aria-label="Pitch look" aria-checked="false"></button>
+              <button type="button" role="radio" data-skin="flood" aria-label="Floodlight look" aria-checked="false"></button>
+            </div>
+          </div>
+          <div class="reels" id="reels"></div>
+          <div class="res" aria-live="polite">
+            <div><div class="res-pat" id="resPat"></div><div class="res-note" id="resNote"></div></div>
+            <div class="res-pts" id="resPts"></div>
+          </div>
+          <div class="meta"><span id="leftTxt"></span><span class="pips" id="pips" aria-hidden="true"></span></div>
+          <button class="spin" id="spin" type="button">Spin</button>
+          <button class="odds-btn" id="oddsBtn" type="button" aria-expanded="false" aria-controls="odds">Show odds</button>
+        </div>
+      </div>
+
+      <div class="col-b">
+        <div class="sec" id="odds" hidden>
+          <h2>The odds</h2>
+          <p class="muted">Each reel is an independent draw. These figures are worked out from the same weights the game uses.</p>
+          <table id="symTable"></table>
+          <p></p>
+          <table id="patTable"></table>
+          <p class="muted" id="oddsLine"></p>
+        </div>
+        <div class="sec" id="tierCard"></div>
+        <div class="note" id="help">
+          <p><strong>How it works.</strong> Every symbol on the five reels scores its points. Three or more of the same symbol multiplies the total. Points build your weekly tier, and tiers reset each Monday.</p>
+          <button class="x" id="helpX" type="button" aria-label="Dismiss how it works">&times;</button>
+        </div>
+        <details class="demo">
+          <summary>Demo tools</summary>
+          <p class="muted">For reviewing the look. Demo spins are not counted and ignore the daily limit.</p>
+          <div class="demo-btns">
+            <button type="button" data-demo="three">Three of a kind</button>
+            <button type="button" data-demo="fullhouse">Full house</button>
+            <button type="button" data-demo="four">Four of a kind</button>
+            <button type="button" data-demo="crowns">Five Crowns</button>
+            <button type="button" data-demo="golden">Five Golden Reels</button>
+            <button type="button" data-demo="unlock">Unlock all symbols</button>
+            <button type="button" data-demo="reset">Reset my day</button>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLECTION -->
+  <section id="p-coll" role="tabpanel" aria-labelledby="t-coll" hidden>
+    <div class="sec" style="border-top:0;padding-top:0">
+      <h2>Your collection</h2>
+      <p class="muted" id="collTxt"></p>
+      <p class="muted">The rim around a symbol shows how rare it is: plain for common, silver, amber, and a glowing amber for the rarest.</p>
+    </div>
+    <div class="coll" id="coll"></div>
+  </section>
+
+  <!-- ROOM -->
+  <section id="p-room" role="tabpanel" aria-labelledby="t-room" hidden>
+    <div class="room">
+      <div>
+        <div class="sec" style="border-top:0;padding-top:0">
+          <h2 id="roomTitle">Reel Room</h2>
+          <p>You are placed in a room of 20 players who finished last week on the same tier. No friends needed. Rooms form again every Monday, and your tier never drops during the week.</p>
+          <p class="muted"><strong>Demo data.</strong> The other players here are made up for the prototype.</p>
+        </div>
+        <table class="rank" id="rank"></table>
+      </div>
+      <div class="sec">
+        <h2>Community vault</h2>
+        <p>Every spin from every player fills the vault. At 5,000 spins in a day, tomorrow's reels switch to the Floodlight look for everyone. It is a cosmetic unlock only, and it never adds spins.</p>
+        <div class="bar" role="progressbar" aria-label="Community vault" id="vaultBar" aria-valuemin="0" aria-valuemax="5000"><div id="vaultFill"></div></div>
+        <p class="muted" id="vaultTxt"></p>
+        <p class="muted"><strong>Demo numbers.</strong> The total is simulated. Your own spins today are real.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <p>Free to play. No stake, no purchase, no prizes. 18+ only.</p>
+    <p><a class="rg" href="https://www.begambleaware.org" target="_blank" rel="noopener noreferrer">BeGambleAware.org</a></p>
+    <p>Look prototype: spins are drawn in your browser and the age gate is left out. The real game draws every spin on the server and keeps the age gate.</p>
+  </div>
+</main>
+
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
