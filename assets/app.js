@@ -72,7 +72,7 @@ let st = load();
 /* ---------- dom ---------- */
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const stage = $("#cab"), reelsEl = $("#reels");
+const stage = $("#cab"), hero = $("#hero"), reelsEl = $("#reels");
 const reduce = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 let busy = false;
 
@@ -108,7 +108,7 @@ function countUp(el, to) {
 }
 function idle() { $("#resNote").textContent = st.used >= SPINS_PER_DAY ? "Come back tomorrow for three more spins." : "Press Spin to play."; }
 function clearResult() {
-  stage.classList.remove("flash"); reelsEl.classList.remove("has-hit"); reels.forEach(r => r.classList.remove("hit", "soft"));
+  hero.classList.remove("flash"); reelsEl.classList.remove("has-hit"); reels.forEach(r => r.classList.remove("hit", "soft"));
   $("#resPat").textContent = ""; $("#resPts").textContent = ""; $("#resNote").textContent = "";
 }
 
@@ -126,7 +126,7 @@ async function doSpin(forced) {
   const patTxt = c.topN >= 4 ? `${c.topN === 5 ? "Five" : "Four"} ${byId[c.top].plural}` : c.pat === "three" ? `Three ${byId[c.top].plural}` : PAT_NAME[c.pat];
   $("#resPat").textContent = patTxt; countUp($("#resPts"), pts);
   $("#resNote").textContent = forced ? "Demo spin. Not counted." : (MULT[c.pat] > 1 ? `Symbols × ${MULT[c.pat]}` : "");
-  if (c.topN >= 4 && !reduce()) { stage.classList.add("flash"); setTimeout(() => stage.classList.remove("flash"), 1100); }
+  if (c.topN >= 4 && !reduce()) { hero.classList.add("flash"); setTimeout(() => hero.classList.remove("flash"), 1100); }
   if (!forced) { st.used++; st.points += pts; ids.forEach(i => st.found[i] = (st.found[i] || 0) + 1); save(); }
   busy = false; renderAll();
 }
@@ -193,6 +193,7 @@ const HASH = { play: "", coll: "#collection", room: "#room" };
 function tabFromHash() { const k = Object.keys(HASH).find(k => HASH[k] && HASH[k] === location.hash); return $("#t-" + (k || "play")); }
 function showTab(t, focus, push) {
   tabs.forEach(x => { const on = x === t; x.setAttribute("aria-selected", String(on)); x.tabIndex = on ? 0 : -1; $("#" + x.getAttribute("aria-controls")).hidden = !on; });
+  const onPlay = t.id === "t-play"; $("#stageSlot").hidden = !onPlay; hero.classList.toggle("compact", !onPlay);
   if (focus) t.focus();
   if (push) { try { const h = HASH[t.id.slice(2)]; if (location.hash !== h) history.pushState(null, "", h || location.pathname + location.search); } catch (e) { /* history unavailable: tabs still work */ } }
 }

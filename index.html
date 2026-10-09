@@ -19,25 +19,23 @@
     <linearGradient id="g-gold" gradientUnits="userSpaceOnUse" x1="8" y1="4" x2="56" y2="60"><stop offset="0" stop-color="#FFF4D2"/><stop offset=".35" stop-color="#F2C15E"/><stop offset=".7" stop-color="#C88A2E"/><stop offset="1" stop-color="#FFE8A6"/></linearGradient>
   </defs>
 </svg>
-<main class="app" data-skin="matchday">
-  <h1><svg class="mark" viewBox="0 0 46 30" aria-hidden="true" focusable="false"><rect x="0" y="0" width="7" height="30" rx="3.5"/><rect x="10" y="0" width="7" height="30" rx="3.5"/><rect class="hi" x="20" y="0" width="7" height="30" rx="3.5"/><rect x="30" y="0" width="7" height="30" rx="3.5"/><rect x="39" y="0" width="7" height="30" rx="3.5"/></svg>Quintet</h1>
-  <p class="sub">Five reels, three free spins a day. Match three or more symbols to multiply your points.</p>
-
-  <div class="note" id="recap" hidden>
+<div class="app" data-skin="matchday">
+  <header class="hero" id="hero">
+    <div class="wrap hero-in">
+      <div class="hero-head">
+        <h1><svg class="mark" viewBox="0 0 46 30" aria-hidden="true" focusable="false"><rect x="0" y="0" width="7" height="30" rx="3.5"/><rect x="10" y="0" width="7" height="30" rx="3.5"/><rect class="hi" x="20" y="0" width="7" height="30" rx="3.5"/><rect x="30" y="0" width="7" height="30" rx="3.5"/><rect x="39" y="0" width="7" height="30" rx="3.5"/></svg>Quintet</h1>
+        <p class="sub">Five reels, three free spins a day. Match three or more symbols to multiply your points.</p>
+        <div class="note" id="recap" hidden>
     <p id="recapTxt"></p>
     <button class="x" id="recapX" type="button" aria-label="Dismiss last week's recap">&times;</button>
   </div>
-
-  <div class="tabs" role="tablist" aria-label="Sections">
+        <div class="tabs" role="tablist" aria-label="Sections">
     <button type="button" role="tab" id="t-play" aria-selected="true" aria-controls="p-play">Play</button>
     <button type="button" role="tab" id="t-coll" aria-selected="false" aria-controls="p-coll">Collection</button>
     <button type="button" role="tab" id="t-room" aria-selected="false" aria-controls="p-room">Reel Room</button>
   </div>
-
-  <!-- PLAY -->
-  <section id="p-play" role="tabpanel" aria-labelledby="t-play">
-    <div class="play">
-      <div class="col-a">
+      </div>
+      <div class="hero-stage" id="stageSlot">
         <div class="stage" id="cab">
           <div class="stage-top">
             <span class="chip">Free to play. 18+</span>
@@ -57,8 +55,13 @@
           <button class="odds-btn" id="oddsBtn" type="button" aria-expanded="false" aria-controls="odds">Show odds</button>
         </div>
       </div>
+    </div>
+  </header>
 
-      <div class="col-b">
+  <main class="wrap content">
+  <!-- PLAY -->
+  <section id="p-play" role="tabpanel" aria-labelledby="t-play">
+    <div class="col-b">
         <div class="sec" id="odds" hidden>
           <h2>The odds</h2>
           <p class="muted">Each reel is an independent draw. These figures are worked out from the same weights the game uses.</p>
@@ -86,7 +89,6 @@
           </div>
         </details>
       </div>
-    </div>
   </section>
 
   <!-- COLLECTION -->
@@ -126,6 +128,8 @@
     <p>Look prototype: spins are drawn in your browser and the age gate is left out. The real game draws every spin on the server and keeps the age gate.</p>
   </div>
 </main>
+</div>
+
 
 <script src="/assets/app.js" defer></script>
 </body>
