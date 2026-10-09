@@ -29,7 +29,7 @@ button { font: inherit; color: inherit; }
 .app[data-skin="flood"] { --st1: #2e3748; --st2: #181d28; --st3: #0b0e15; --acc: #9FE8F5; --st-line: rgba(159,232,245,.11); }
 
 /* header */
-h1 { margin: 0; font-weight: 800; font-stretch: 125%; font-size: clamp(1.75rem, 8.2vw, 2.5rem); line-height: 1; letter-spacing: -.025em; }
+h1 { display: flex; align-items: center; gap: .6rem; margin: 0; font-weight: 800; font-stretch: 125%; font-size: clamp(1.75rem, 8.2vw, 2.5rem); line-height: 1; letter-spacing: -.025em; }
 .sub { margin: .5rem 0 0; color: var(--muted); font-size: .9375rem; max-width: 30rem; }
 .tabs { display: flex; border-bottom: 1px solid var(--line); margin: 1.1rem 0 1.25rem; }
 .tabs button { flex: 1; min-height: 2.75rem; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--muted); font-weight: 600; font-size: .9375rem; cursor: pointer; }
@@ -171,3 +171,20 @@ details.demo summary { cursor: pointer; font-weight: 600; min-height: 2.75rem; d
   .looks button::before, .reel::after, .cell svg, .rail .fill, .bar > div, .spin { transition: none; }
 }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* wordmark */
+.mark { height: .72em; width: auto; flex: none; fill: currentColor; }
+.mark .hi { fill: var(--blue); }
+
+/* motion polish: a physical landing, and the match marker draws in from the centre */
+@keyframes land { 0% { transform: translateY(-7px); } 55% { transform: translateY(2px); } 100% { transform: none; } }
+.reel.settle .win { animation: land .32s cubic-bezier(.3,.7,.4,1); }
+.reel::after { transform: scaleX(0); transition: transform .35s cubic-bezier(.2,.8,.2,1) calc(var(--i, 0) * 70ms), opacity .2s; }
+.reel.hit::after, .reel.soft::after { transform: scaleX(1); }
+.reel.hit .cell svg { transform: scale(1.07); }
+.cell svg { transition: opacity .3s, transform .35s cubic-bezier(.2,.8,.2,1); }
+@media (prefers-reduced-motion: reduce) {
+  .reel.settle .win { animation: none; }
+  .reel::after, .cell svg { transition: none; }
+  .reel.hit .cell svg { transform: none; }
+}

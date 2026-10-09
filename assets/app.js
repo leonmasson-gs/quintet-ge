@@ -2,13 +2,13 @@
 /* ---------- config (in the real game this lives in config/reel.json) ---------- */
 const SPINS_PER_DAY = 3;
 const SYM = [
-  { id: "disc", name: "Disc", plural: "Discs", rarity: "common", w: 24, p: 1 },
-  { id: "pennant", name: "Pennant", plural: "Pennants", rarity: "common", w: 20, p: 1 },
-  { id: "chevron", name: "Chevron", plural: "Chevrons", rarity: "common", w: 16, p: 2 },
-  { id: "hex", name: "Hex", plural: "Hexes", rarity: "rare", w: 14, p: 3 },
-  { id: "star", name: "Star", plural: "Stars", rarity: "rare", w: 12, p: 4 },
-  { id: "prism", name: "Prism", plural: "Prisms", rarity: "epic", w: 8, p: 8 },
-  { id: "crown", name: "Crown", plural: "Crowns", rarity: "epic", w: 5, p: 15 },
+  { id: "pitch", name: "Pitch", plural: "Pitches", rarity: "common", w: 24, p: 1 },
+  { id: "ball", name: "Ball", plural: "Balls", rarity: "common", w: 20, p: 1 },
+  { id: "tunnel", name: "Tunnel", plural: "Tunnels", rarity: "common", w: 16, p: 2 },
+  { id: "floodlight", name: "Floodlight", plural: "Floodlights", rarity: "rare", w: 14, p: 3 },
+  { id: "truss", name: "Truss", plural: "Trusses", rarity: "rare", w: 12, p: 4 },
+  { id: "ticket", name: "Ticket", plural: "Tickets", rarity: "epic", w: 8, p: 8 },
+  { id: "trophy", name: "Trophy", plural: "Trophies", rarity: "epic", w: 5, p: 15 },
   { id: "golden", name: "Golden Reel", plural: "Golden Reels", rarity: "legendary", w: 1, p: 40 }
 ];
 const MULT = { none: 1, pair: 1, twopair: 2, three: 3, fullhouse: 5, four: 10, five: 25 };
@@ -19,13 +19,13 @@ const TOTAL_W = SYM.reduce((n, s) => n + s.w, 0);
 const byId = Object.fromEntries(SYM.map(s => [s.id, s]));
 const svg = inner => `<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">${inner}</svg>`;
 const ART = {
-  disc: svg(`<circle cx="32" cy="32" r="23" fill="url(#g-bone)"/><circle cx="32" cy="32" r="14" fill="#0E2A4D"/><circle cx="32" cy="32" r="6.5" fill="url(#g-bone)"/>`),
-  pennant: svg(`<rect x="15" y="7" width="4.5" height="50" rx="2.25" fill="url(#g-bone)"/><path d="M22 11 L53 24 L22 37 Z" fill="url(#g-bone)"/>`),
-  chevron: svg(`<path d="M10 24 L32 8 L54 24 L54 34 L32 18 L10 34 Z" fill="url(#g-bone)"/><path d="M10 42 L32 26 L54 42 L54 52 L32 36 L10 52 Z" fill="url(#g-bone)"/>`),
-  hex: svg(`<polygon points="32,6 54,19 54,45 32,58 10,45 10,19" fill="url(#g-silver)"/><polygon points="32,18 44,25 44,39 32,46 20,39 20,25" fill="#0E2A4D"/><circle cx="32" cy="32" r="3.4" fill="url(#g-silver)"/>`),
-  star: svg(`<polygon points="32,6 39.5,24 59,25.5 44,38 49,57 32,46.5 15,57 20,38 5,25.5 24.5,24" fill="url(#g-silver)"/><path d="M32 6 L39.5 24 L59 25.5 L44 38 L49 57 L32 46.5 Z" fill="#0E2A4D" opacity=".16"/>`),
-  prism: svg(`<polygon points="20,10 44,10 58,26 32,56 6,26" fill="url(#g-amber)"/><polygon points="20,10 44,10 32,26" fill="#fff" opacity=".4"/><polygon points="20,10 32,26 6,26" fill="#fff" opacity=".24"/><polygon points="44,10 58,26 32,26" fill="#000" opacity=".16"/><polygon points="32,26 58,26 32,56" fill="#000" opacity=".28"/>`),
-  crown: svg(`<path d="M8 46 L6 20 L21 32 L32 12 L43 32 L58 20 L56 46 Z" fill="url(#g-amber)"/><rect x="8" y="48" width="48" height="8" rx="2" fill="url(#g-amber)"/><path d="M32 12 L43 32 L58 20 L56 46 L32 46 Z" fill="#000" opacity=".15"/><circle cx="6" cy="19" r="3" fill="url(#g-amber)"/><circle cx="32" cy="11" r="3.2" fill="url(#g-amber)"/><circle cx="58" cy="19" r="3" fill="url(#g-amber)"/><circle cx="32" cy="37" r="3.6" fill="#0E2A4D"/>`),
+  pitch: svg(`<rect x="8" y="13" width="48" height="38" rx="3" fill="none" stroke="url(#g-bone)" stroke-width="4"/><path d="M32 13 V51" stroke="url(#g-bone)" stroke-width="3.2"/><circle cx="32" cy="32" r="8.5" fill="none" stroke="url(#g-bone)" stroke-width="3.2"/><path d="M8 24 H15 V40 H8 M56 24 H49 V40 H56" fill="none" stroke="url(#g-bone)" stroke-width="3.2" stroke-linejoin="round"/>`),
+  ball: svg(`<circle cx="32" cy="32" r="25" fill="url(#g-bone)"/><polygon points="32,20 43.4,28.3 39.1,41.7 24.9,41.7 20.6,28.3" fill="#0E2A4D"/><path d="M32 20 V9.5 M43.4 28.3 L53.4 25 M39.1 41.7 L45.3 50.2 M24.9 41.7 L18.7 50.2 M20.6 28.3 L10.6 25" stroke="#0E2A4D" stroke-width="3" stroke-linecap="round"/>`),
+  tunnel: svg(`<path d="M8 57 V32 A24 24 0 0 1 56 32 V57 H45 V32 A13 13 0 0 0 19 32 V57 Z" fill="url(#g-bone)"/><path d="M27 57 V37 A5 5 0 0 1 37 37 V57" fill="none" stroke="url(#g-bone)" stroke-width="3.4" stroke-linecap="round"/>`),
+  floodlight: svg(`<rect x="29.5" y="30" width="5" height="26" rx="2" fill="url(#g-silver)"/><rect x="21" y="55" width="22" height="4.5" rx="2.2" fill="url(#g-silver)"/><rect x="11" y="6" width="42" height="26" rx="4.5" fill="url(#g-silver)"/><g fill="#0E2A4D"><circle cx="21.5" cy="14" r="4"/><circle cx="32" cy="14" r="4"/><circle cx="42.5" cy="14" r="4"/><circle cx="21.5" cy="24.5" r="4"/><circle cx="32" cy="24.5" r="4"/><circle cx="42.5" cy="24.5" r="4"/></g>`),
+  truss: svg(`<path d="M7 53 L32 10 L57 53 Z" fill="none" stroke="url(#g-silver)" stroke-width="4.5" stroke-linejoin="round"/><path d="M19.5 31.5 H44.5 M19.5 31.5 L32 53 L44.5 31.5" fill="none" stroke="url(#g-silver)" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>`),
+  ticket: svg(`<path d="M7 15 H57 V27 A5 5 0 0 0 57 37 V49 H7 V37 A5 5 0 0 0 7 27 Z" fill="url(#g-amber)"/><path d="M41 19 V45" stroke="#0E2A4D" stroke-width="2.6" stroke-dasharray="3.4 3.4"/><polygon points="24,22.5 26.8,28.6 33.4,29.3 28.4,33.7 29.9,40.2 24,36.8 18.1,40.2 19.6,33.7 14.6,29.3 21.2,28.6" fill="#0E2A4D"/>`),
+  trophy: svg(`<path d="M17 8 H47 V26 C47 35.5 40.5 41 32 41 C23.5 41 17 35.5 17 26 Z" fill="url(#g-amber)"/><path d="M17 13 H9.5 V20 C9.5 26 13.5 28.5 18.5 28.5 M47 13 H54.5 V20 C54.5 26 50.5 28.5 45.5 28.5" fill="none" stroke="url(#g-amber)" stroke-width="3.6" stroke-linejoin="round"/><rect x="28.5" y="40" width="7" height="11" fill="url(#g-amber)"/><rect x="19" y="50" width="26" height="7.5" rx="2" fill="url(#g-amber)"/><path d="M23 13 V26 C23 31 26 34 30 35" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="3" stroke-linecap="round"/>`),
   golden: svg(`<circle cx="32" cy="32" r="27" fill="url(#g-gold)"/><circle cx="32" cy="32" r="19.5" fill="#0E2A4D"/><g stroke="url(#g-gold)" stroke-width="3.2" stroke-linecap="round"><path d="M32 15.5v10M32 38.5v10M15.5 32h10M38.5 32h10M20.3 20.3l7 7M36.7 36.7l7 7M43.7 20.3l-7 7M27.3 36.7l-7 7"/></g><circle cx="32" cy="32" r="5.2" fill="url(#g-gold)"/>`)
 };
 
@@ -76,11 +76,11 @@ const stage = $("#cab"), reelsEl = $("#reels");
 const reduce = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 let busy = false;
 
-const START = ["disc", "pennant", "chevron", "hex", "star"];
+const START = ["pitch", "ball", "tunnel", "floodlight", "truss"];
 const reels = START.map((id, i) => {
   const r = document.createElement("div"); r.className = "reel";
   r.innerHTML = `<div class="win" role="img"><div class="strip"></div></div>`;
-  reelsEl.appendChild(r); setReel(r, id, i); return r;
+  r.style.setProperty("--i", i); reelsEl.appendChild(r); setReel(r, id, i); return r;
 });
 function setReel(r, id, i) {
   const idx = i ?? reels.indexOf(r);
@@ -211,8 +211,8 @@ function setSkin(k) { st.skin = k; save(); $(".app").dataset.skin = k; $$(".look
 $$(".looks button").forEach(b => b.addEventListener("click", () => setSkin(b.dataset.skin)));
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 const DEMO = {
-  three: () => shuffle(["pennant", "pennant", "pennant", "chevron", "star"]), fullhouse: () => shuffle(["hex", "hex", "hex", "prism", "prism"]),
-  four: () => shuffle(["star", "star", "star", "star", "disc"]), crowns: () => Array(5).fill("crown"), golden: () => Array(5).fill("golden")
+  three: () => shuffle(["ball", "ball", "ball", "tunnel", "truss"]), fullhouse: () => shuffle(["floodlight", "floodlight", "floodlight", "ticket", "ticket"]),
+  four: () => shuffle(["truss", "truss", "truss", "truss", "pitch"]), crowns: () => Array(5).fill("trophy"), golden: () => Array(5).fill("golden")
 };
 $$("[data-demo]").forEach(b => b.addEventListener("click", () => {
   const k = b.dataset.demo;
